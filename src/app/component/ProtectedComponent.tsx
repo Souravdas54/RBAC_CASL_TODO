@@ -10,9 +10,9 @@ const ProtectedComponent = () => {
   const { role } = useRole();
   const ability = defineAbilitiesFor(role);
 
-  const [savename, setSaveName] = useState('');
+  const [savename, setSaveName] = useState<string>('');
   const [isEditing, setIsEditing] = useState(null);
-  const [showname, setShowName] = useState([]);
+  const [showname, setShowName] = useState<string[]>([]);;
 
   // Save name to localStorage
   const handlesave = () => {
