@@ -6,13 +6,18 @@ import { Can } from '@casl/react';
 import { Box, Button, TextField, Typography, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 
+
+type Todo = {
+  id: string;
+  text: string;
+};
 const ProtectedComponent = () => {
   const { role } = useRole();
   const ability = defineAbilitiesFor(role);
 
   const [savename, setSaveName] = useState<string>('');
   const [isEditing, setIsEditing] = useState(null);
-  const [showname, setShowName] = useState<string[]>([]);;
+  const [showname, setShowName] = useState<Todo[]>([]);;
 
   // Save name to localStorage
   const handlesave = () => {
