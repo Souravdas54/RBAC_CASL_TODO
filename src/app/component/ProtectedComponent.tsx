@@ -27,14 +27,14 @@ const ProtectedComponent = () => {
   };
 
   // Delete a name
-  const handledelete = (id) => {
+  const handledelete = (id: string | number) => {
     const updatedData = showname.filter(item => item.id !== id);
     localStorage.setItem('Name_save', JSON.stringify(updatedData));
     setShowName(updatedData);
   };
 
   // Enable edit mode
-  const handleEdit = (id) => {
+  const handleEdit = (id:string) => {
     setIsEditing(id);
     const editItem = showname.find(item => item.id === id);
     if (editItem) setSaveName(editItem.name);
@@ -55,6 +55,9 @@ const ProtectedComponent = () => {
     setShowName(storedName);
   }, []);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSaveName(e.target.value);
+  };
   return (
     <Box sx={{ mt: 4, textAlign: 'center' }}>
       <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>
@@ -71,7 +74,8 @@ const ProtectedComponent = () => {
                   <TextField
                     type='text'
                     value={savename}
-                    onChange={(e) => setSaveName(e.target.value)}
+                    // onChange={(e) => setSaveName(e.target.value)}
+                    onChange={handleInputChange}
                   />
                 ) : (
                   <Typography variant="h6">{item.name}</Typography>
