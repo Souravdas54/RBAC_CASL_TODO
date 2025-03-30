@@ -3,14 +3,14 @@
 import { useRole } from '../contaxt/RoleContext';
 import { defineAbilitiesFor } from '@/app/lib/ability';
 import { Can } from '@casl/react';
-import { Box, Button, TextField, Typography, Grid } from '@mui/material';
+import { Box, Button, TextField, Typography, } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 
 type Todo = {
   id: string;
   text: string;
-  name:string;
+  name: string;
 };
 const ProtectedComponent = () => {
   const { role } = useRole();
@@ -40,14 +40,14 @@ const ProtectedComponent = () => {
   };
 
   // Enable edit mode
-  const handleEdit = (id:string) => {
+  const handleEdit = (id: string) => {
     setIsEditing(id);
     const editItem = showname.find(item => item.id === id);
     if (editItem) setSaveName(editItem.name);
   };
 
   // Update a name
-  const handleUpdate = (id:string) => {
+  const handleUpdate = (id: string) => {
     const updatedData = showname.map(item => item.id === id ? { ...item, name: savename } : item);
     localStorage.setItem('Name_save', JSON.stringify(updatedData));
     setShowName(updatedData);
@@ -72,16 +72,16 @@ const ProtectedComponent = () => {
 
       {/* User can only read */}
       <Can I="read" a="Todo" ability={ability}>
-        <Grid container spacing={2} direction="column" alignItems="center">
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
           {showname.map((item) => (
-            <Grid item key={item.id}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+            <Box key={String(item.id)} sx={{ p: 2, border: '1px solid gray', borderRadius: 2, width: '100%', maxWidth: 400 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                 {isEditing === item.id ? (
                   <TextField
-                    type='text'
+                    type="text"
                     value={savename}
-                    // onChange={(e) => setSaveName(e.target.value)}
                     onChange={handleInputChange}
+                    fullWidth
                   />
                 ) : (
                   <Typography variant="h6">{item.name}</Typography>
@@ -90,7 +90,7 @@ const ProtectedComponent = () => {
 
               {/* Admin & Editor can edit/delete, User can only read */}
               <Can I="update" a="Todo" ability={ability}>
-                <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center' }}>
+                <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mt: 1 }}>
                   {isEditing === item.id ? (
                     <Button variant="contained" color="primary" onClick={() => handleUpdate(item.id)}>Update</Button>
                   ) : (
@@ -101,19 +101,27 @@ const ProtectedComponent = () => {
                   </Can>
                 </Box>
               </Can>
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Can>
 
       {/* Only Admin can create */}
       <Can I="create" a="Todo" ability={ability}>
         <Box sx={{ mt: 2 }}>
-          <TextField label="Enter Name" type='text' value={savename} onChange={(e) => setSaveName(e.target.value)} variant="outlined" sx={{ mb: 2 }} />
+          <TextField
+            label="Enter Name"
+            type="text"
+            value={savename}
+            onChange={(e) => setSaveName(e.target.value)}
+            variant="outlined"
+            sx={{ mb: 2, width: '100%', maxWidth: 400 }}
+          />
           <Button variant="contained" color="primary" onClick={handlesave}>Create Todo</Button>
         </Box>
       </Can>
     </Box>
+
   );
 };
 
