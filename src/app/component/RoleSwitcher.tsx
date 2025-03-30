@@ -7,7 +7,8 @@ const RoleSwitcher = () => {
   const { role, setRole } = useRole();
 
   return (
-    <Box sx={{ mt: 4, textAlign: 'center' }}>
+    <>
+    <Box sx={{ mt: 4, textAlign: 'center', }}>
       <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 3 }}>
         Current Role {role}
       </Typography>
@@ -20,12 +21,19 @@ const RoleSwitcher = () => {
         <Button variant="contained" color="success" onClick={() => setRole('editor')}>
           Editor
         </Button>
-        
+
         <Button variant="contained" color="secondary" onClick={() => setRole('user')}>
           User
         </Button>
       </Box>
     </Box>
+      {/* Role descriptions - Positioned below the button */}
+      <Box sx={{ mt: 3, textAlign: 'justify',ml:62 }}>
+        <Typography variant="h5"><strong>Admin - </strong>Can create, update, and delete text</Typography>
+        <Typography variant="h5"><strong>Editor - </strong>Can update and delete text</Typography>
+        <Typography variant="h5"><strong>User - </strong>Can only read</Typography>
+      </Box>
+      </>
   );
 };
 
