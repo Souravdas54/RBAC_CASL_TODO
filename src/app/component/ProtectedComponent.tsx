@@ -16,7 +16,7 @@ const ProtectedComponent = () => {
   const ability = defineAbilitiesFor(role);
 
   const [savename, setSaveName] = useState<string>('');
-  const [isEditing, setIsEditing] = useState(null);
+  const [isEditing, setIsEditing] = useState<string | null>(null);
   const [showname, setShowName] = useState<Todo[]>([]);;
 
   // Save name to localStorage
@@ -39,7 +39,7 @@ const ProtectedComponent = () => {
   };
 
   // Enable edit mode
-  const handleEdit = (id:string) => {
+  const handleEdit = (id:string | number) => {
     setIsEditing(id);
     const editItem = showname.find(item => item.id === id);
     if (editItem) setSaveName(editItem.name);
