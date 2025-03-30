@@ -39,7 +39,7 @@ const ProtectedComponent = () => {
   };
 
   // Enable edit mode
-  const handleEdit = (id:string | number) => {
+  const handleEdit = (id:string) => {
     setIsEditing(id);
     const editItem = showname.find(item => item.id === id);
     if (editItem) setSaveName(editItem.name);
