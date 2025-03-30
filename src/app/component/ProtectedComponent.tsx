@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 type Todo = {
   id: string;
   text: string;
+  name:string;
 };
 const ProtectedComponent = () => {
   const { role } = useRole();
@@ -46,7 +47,7 @@ const ProtectedComponent = () => {
   };
 
   // Update a name
-  const handleUpdate = (id) => {
+  const handleUpdate = (id:string) => {
     const updatedData = showname.map(item => item.id === id ? { ...item, name: savename } : item);
     localStorage.setItem('Name_save', JSON.stringify(updatedData));
     setShowName(updatedData);
